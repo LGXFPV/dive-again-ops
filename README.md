@@ -1,2 +1,15 @@
 # dive-again-ops
 A full package operations system for dive shops 
+/createFileGitHub repo-name=dive-again-ops filename=README.md content="\
+# Dive Again Ops\n\nA modular monorepo for the Dive Again Operations system.\n\n## 🔧 Local Setup (one-command)\nInstall [Docker](https://www.docker.com/get-started) and run:\n\n```bash\nnpm install -g docker-compose\ndocker-compose up --build\n```\nThis starts:\n- **backend** (Node.js + Express + Postgres)\n- **frontend** (React app)\n- **PostgreSQL** database\n\n## 🏗️ Repo Structure\ndive-again-ops/\n├── backend/...\n├── frontend/...\n├── docs/\n│   └── architecture.png\n├── docker-compose.yml\n└── README.md\n\n## 🛠 Development Flow\n1. Clone the repo.\n2. Copy `.env.example` to `.env` files and fill API keys.\n3. Run `docker-compose up` for full dev environment.\n4. Backend API roots at `http://localhost:5000`, frontend at `http://localhost:3000`.\n\n## 🚀 Deployment\n- Backend: AWS EC2 + RDS or Vercel with Postgres.\n- Frontend: Netlify or Vercel.\n\n## 🤖 AI-Powered Assistant\nThis repo is managed by our AI coding assistant for feature dev, CI, and PRs.""
+/createFileGitHub repo-name=dive-again-ops filename=docker-compose.yml content="\
+version: '3.8'\nservices:\n  db:\n    image: postgres:13\n    environment:\n      - POSTGRES_USER=postgres\n      - POSTGRES_PASSWORD=postgres\n      - POSTGRES_DB=diveops\n    ports:\n      - \"5432:5432\"\n    volumes:\n      - db-data:/var/lib/postgresql/data\n  backend:\n    build: ./backend\n    env_file:\n      - ./backend/.env\n    ports:\n      - \"5000:5000\"\n    depends_on:\n      - db\n  frontend:\n    build: ./frontend\n    env_file:\n      - ./frontend/.env\n    ports:\n      - \"3000:3000\"\n    depends_on:\n      - backend\n\nvolumes:\n  db-data:\n"
+/createFileGitHub repo-name=dive-again-ops filename=.gitignore content="\
+# Node\nnode_modules/\n/dist\n/build\n\n# Env\n*.env\n\n# Logs\nnpm-debug.log*\nyarn-debug.log*\nyarn-error.log*\n"
+/createFileGitHub repo-name=dive-again-ops filename=backend/.env.example content="\
+# Backend Environment\nPORT=5000\nDATABASE_URL=postgres://postgres:postgres@db:5432/diveops\nSTRIPE_API_KEY=\nSQUARE_ACCESS_TOKEN=\nPADI_API_KEY=\nSMARTWAIVER_API_KEY=\nGOOGLE_CALENDAR_CLIENT_ID=\nGOOGLE_CALENDAR_CLIENT_SECRET=\n"
+/createFileGitHub repo-name=dive-again-ops filename=frontend/.env.example content="\
+# Frontend Environment\nREACT_APP_API_URL=http://localhost:5000\n"
+/createFileGitHub repo-name=dive-again-ops filename=docs/setup-guide.md content="\
+# Dive Again Ops Setup Guide\n\n## Prerequisites\n- Docker & Docker Compose installed\n- Node.js v18+\n\n## Getting Started\n1. Clone repo: `git clone ...`\n2. Copy `.env` files from examples and fill keys.\n3. Run `docker-compose up --build`.\n\n## Access\n- Backend API: `http://localhost:5000`\n- Frontend: `http://localhost:3000`\n\n## Production Deployment\nSee architecture diagram in docs/architecture.png\n"
+/createFileGitHub repo-name=dive-again-ops filename=docs/architecture.png content="(placeholder for architecture diagram)\n"
